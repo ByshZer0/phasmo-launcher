@@ -81,7 +81,8 @@ class ConfigTests(unittest.TestCase):
     def test_default_path_honours_environment_override(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             with mock.patch.dict(os.environ, {"PHASMO_LAUNCHER_HOME": tmp}):
-                self.assertEqual(ConfigStore().path, Path(tmp) / "config.json")
+                expected = (Path(tmp) / "config.json").resolve()
+                self.assertEqual(ConfigStore().path, expected)
 
 
 if __name__ == "__main__":
