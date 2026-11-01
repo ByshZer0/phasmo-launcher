@@ -1,0 +1,78 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests (Windows)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run unit tests
+        env:
+          PYTHONUTF8: "1"
+        run: python -m unittest discover -s tests -t . -v
+
+  build:
+    name: Build Windows app
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build dependencies
+        run: python -m pip install --disable-pip-version-check pyinstaller pillow
+
+      - name: Generate icon
+        run: python scripts/generate_icon.py
+
+      - name: Build GUI application
+        shell: pwsh
+        run: |
+          python -m PyInstaller `
+            --noconfirm `
+            --clean `
+            --windowed `
+            --onedir `
+            --name "恐鬼症启动器" `
+            --icon "assets/app.ico" `
+            --version-file "assets/version_info.txt" `
+            --add-data "assets;assets" `
+            --paths "src" `
+            "main.py"
+
+      - name: Package
+        shell: pwsh
+        run: |
+          Compress-Archive `
+            -Path "dist/恐鬼症启动器" `
+            -DestinationPath "dist/恐鬼症启动器-windows-x64.zip" `
+            -CompressionLevel Optimal
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: phasmo-launcher-windows
+          path: dist/恐鬼症启动器-windows-x64.zip
+          if-no-files-found: error

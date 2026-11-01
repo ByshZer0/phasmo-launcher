@@ -1,0 +1,30 @@
+"""项目级常量。"""
+
+from __future__ import annotations
+
+APP_NAME = "恐鬼症启动器"
+APP_NAME_EN = "Phasmo Launcher"
+APP_ID = "phasmo-launcher"
+VERSION = "1.0.0"
+
+GAME_NAME = "Phasmophobia"
+GAME_NAME_CN = "恐鬼症"
+STEAM_APP_ID = 739630
+STEAM_GAME_URI = f"steam://rungameid/{STEAM_APP_ID}"
+
+DEFAULT_ACCELERATOR_WAIT = 10
+MAX_ACCELERATOR_WAIT = 300
+DEFAULT_STEAM_START_TIMEOUT = 60
+
+LAUNCH_ORDER_ACCELERATOR_FIRST = "accelerator_first"
+LAUNCH_ORDER_STEAM_FIRST = "steam_first"
+LAUNCH_ORDERS = (
+    LAUNCH_ORDER_ACCELERATOR_FIRST,
+    LAUNCH_ORDER_STEAM_FIRST,
+)
+
+MODE_ALL = "all"
+MODE_GAME = "game"
+MODE_STEAM = "steam"
+MODE_ACCELERATOR = "accelerator"
+LAUNCH_MODES = (MODE_ALL, MODE_GAME, MODE_STEAM, MODE_ACCELERATOR)

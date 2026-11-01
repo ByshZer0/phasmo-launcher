@@ -1,0 +1,8 @@
+{
+  "steam_path": "",
+  "accelerator_path": "C:\\Program Files\\UU\\UU.exe",
+  "accelerator_args": "",
+  "accelerator_wait_seconds": 10,
+  "launch_order": "accelerator_first",
+  "close_after_launch": false
+}

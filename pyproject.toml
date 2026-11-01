@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phasmo-launcher"
+version = "1.0.0"
+description = "一键拉起加速器、Steam 与《恐鬼症》（Phasmophobia）的 Windows 启动器"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Phasmo Launcher Contributors" }]
+keywords = ["phasmophobia", "steam", "launcher", "accelerator", "windows", "tkinter"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Games/Entertainment",
+    "Topic :: Utilities",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pyinstaller>=6.0",
+    "pillow>=10.0",
+]
+
+[project.gui-scripts]
+phasmo-launcher = "phasmo_launcher.app:run_gui"
+
+[project.scripts]
+phasmo-launcher-cli = "phasmo_launcher.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
